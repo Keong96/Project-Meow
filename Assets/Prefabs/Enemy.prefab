@@ -69,15 +69,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 739884758251738068}
-  projectilePrefab: {fileID: 0}
-  dash_VFX_Prefab: {fileID: 0}
-  anim: {fileID: 0}
-  weapon: {fileID: 0}
+  anim: {fileID: 1441273855}
+  weaponHolder: {fileID: 0}
+  armorHolder: {fileID: 0}
   currentHealth:
     baseValue: 0
     currentValue: 0
   maxHealth:
-    baseValue: 0
+    baseValue: 10
     currentValue: 0
   currentMana:
     baseValue: 0
@@ -86,7 +85,7 @@ MonoBehaviour:
     baseValue: 0
     currentValue: 0
   movementSpeed:
-    baseValue: 0
+    baseValue: 1
     currentValue: 0
   jumpVelocity:
     baseValue: 0
@@ -97,6 +96,9 @@ MonoBehaviour:
   attackDamage:
     baseValue: 0
     currentValue: 0
+  cooldownReduction:
+    baseValue: 0
+    currentValue: 0
   isImmune: 0
   onGround: 0
   canMove: 0
@@ -105,6 +107,20 @@ MonoBehaviour:
   canAttack: 0
   numOfJump: 0
   numOfDash: 0
+  attackAbility:
+    id: 0
+  target: {fileID: 0}
+  attackType: 1
+  attackRange: 3
+  references:
+    version: 1
+    00000000:
+      type: {class: EnemyNormalAttack, ns: , asm: Assembly-CSharp}
+      data:
+        icon: {fileID: 0}
+        damage: 1
+        cooldown: 1.5
+        projectilePrefab: {fileID: 954795483439396426, guid: 7cc92ae2bb25bf242917437514bed6d1, type: 3}
 --- !u!58 &1441273856
 CircleCollider2D:
   m_ObjectHideFlags: 0

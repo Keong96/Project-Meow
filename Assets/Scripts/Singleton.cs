@@ -1,7 +1,9 @@
 using System.Linq;
 using UnityEngine;
+using Sirenix.OdinInspector;
+
 // Highly accessed class, keep this performant!
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public class Singleton<T> : SerializedMonoBehaviour where T : SerializedMonoBehaviour
 {
     private static T instance;
 

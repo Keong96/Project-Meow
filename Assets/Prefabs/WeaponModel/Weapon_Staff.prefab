@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8506449042681072396}
   - component: {fileID: 8506449042681072387}
   - component: {fileID: 4844620311315253148}
-  - component: {fileID: 8101104199808419660}
+  - component: {fileID: -2163638458547140773}
   m_Layer: 0
   m_Name: Weapon_Staff
   m_TagString: Untagged
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 079384524ede5974a800fa8e6b9517a2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e06e5d523f34cf479a1139f32b60308, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,11 +97,11 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.52}
+  m_Offset: {x: 0, y: 0.35}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.15}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.64, y: 0.64}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -110,7 +110,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.65}
   m_EdgeRadius: 0
---- !u!114 &8101104199808419660
+--- !u!114 &-2163638458547140773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,9 +119,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8506449042681072397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e42cb1f234b5584a99cb81c112a2f3c, type: 3}
+  m_Script: {fileID: 11500000, guid: f6b55677d872cfd4694426b6294bdc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   vfxPrefab: {fileID: 4234232798503139106, guid: 604cbb29ab5765347b5424989f79fe2a, type: 3}
-  weaponVisual: {fileID: 0}

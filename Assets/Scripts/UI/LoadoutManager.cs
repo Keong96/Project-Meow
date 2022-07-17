@@ -47,6 +47,9 @@ public class LoadoutManager : Singleton<LoadoutManager>
         weaponSelection = 0;
         armorSelection = 0;
         accessorySelection = 0;
+
+        //TODO : multiplayer need to target correct player
+        myPlayer = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Ready()
@@ -61,9 +64,6 @@ public class LoadoutManager : Singleton<LoadoutManager>
         loadoutPanel.interactable = false;
         loadoutPanel.blocksRaycasts = false;
 
-        //TODO : multiplayer need to target correct player
-        myPlayer = GameObject.FindGameObjectWithTag("Player");
-
         myPlayer.GetComponent<Player>().leftClickAbility = weaponList[weaponSelection].abilities[AbilityType.leftClickAbility];
         myPlayer.GetComponent<Player>().rightClickAbility = weaponList[weaponSelection].abilities[AbilityType.rightClickAbility];
         //TODO : for amor and accessory in future we can do for other ability
@@ -72,9 +72,15 @@ public class LoadoutManager : Singleton<LoadoutManager>
         myPlayer.GetComponent<Rigidbody2D>().simulated = true;
         
         Camera.main.transform.DOMoveY(5f, 2.5f).OnComplete(()=>{
-            myPlayer.GetComponent<Player>().weaponHolder.GetComponent<Weapon>().enabled = true;
+            myPlayer.GetComponent<Player>().weaponHolder.GetComponent<Arm>().enabled = true;
             myPlayer.GetComponent<PlayerController>().enabled = true;
+
+            myPlayer.GetComponent<Player>().weapon = weaponList[weaponSelection];
+            myPlayer.GetComponent<Player>().armor = armorList[armorSelection];
+            myPlayer.GetComponent<Player>().accessory = accessoryList[accessorySelection];
         });
+
+        StartCoroutine(SpawnManager.Instance.SpawnWave(0));
     }
 
     public void ChangeSelection(int type)
@@ -89,6 +95,7 @@ public class LoadoutManager : Singleton<LoadoutManager>
                 weaponSlot.sprite = weaponList[weaponSelection].icon;
                 weaponAbility1.sprite = weaponList[weaponSelection].abilities[AbilityType.leftClickAbility].icon;
                 weaponAbility2.sprite = weaponList[weaponSelection].abilities[AbilityType.rightClickAbility].icon;
+                CloneWeapon(weaponList[weaponSelection].model);
 
                 break;
             case 1:
@@ -146,5 +153,18 @@ public class LoadoutManager : Singleton<LoadoutManager>
         tooltip.GetComponent<CanvasGroup>().alpha = 0.0f;
         tooltip.GetComponent<CanvasGroup>().blocksRaycasts = false;
         tooltip.GetComponent<CanvasGroup>().interactable = false;
+    }
+
+    public void CloneWeapon(GameObject model)
+    {
+        myPlayer.GetComponent<Player>().weaponHolder.GetComponent<SpriteRenderer>().sprite = model.GetComponent<SpriteRenderer>().sprite;
+        myPlayer.GetComponent<Player>().weaponHolder.GetComponent<BoxCollider2D>().offset = model.GetComponent<BoxCollider2D>().offset;
+        myPlayer.GetComponent<Player>().weaponHolder.GetComponent<BoxCollider2D>().size = model.GetComponent<BoxCollider2D>().size;
+        myPlayer.GetComponent<Player>().weaponHolder.GetComponent<WeaponCollide>().vfxPrefab = model.GetComponent<WeaponCollide>().vfxPrefab;
+    }
+
+    public void CloneArmor(GameObject model)
+    {
+
     }
 }
