@@ -10,7 +10,7 @@ public class RoomItem : MonoBehaviour
 {
     public TMP_Text lobbyName;
     public TMP_Text playerCount;
-    private RoomInfo roominfo;
+    public RoomInfo roominfo;
     public void SetRoomInfo(RoomInfo roomInfo)
     {
         if (roomInfo.CustomProperties.TryGetValue("RoomName", out var roomname))

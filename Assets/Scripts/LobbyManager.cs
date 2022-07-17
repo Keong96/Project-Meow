@@ -136,6 +136,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             }
             else
             {
+                roomItems[i].gameObject.SetActive(true);
                 roomItems[i].SetRoomInfo(roomList[i]);
             }
         }
