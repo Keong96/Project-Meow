@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34d0910bb88fc9341a403d3bfb4774f6, type: 3}
-  m_Name: Sword
+  m_Name: Staff
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 21300000, guid: e08cc1f929ccab14cba75b8849f9ece2, type: 3}
-    - {fileID: 2650512335820861125, guid: 2c902bb2c05bdae43937c94aa22e9264, type: 3}
-    - {fileID: 21300000, guid: 5e4bebc1292caa34f979c77f4422f1b2, type: 3}
-    - {fileID: 2143050120008057013, guid: 8564a4d782b34de41832a43031cb802b, type: 3}
+    - {fileID: 21300000, guid: 5daa8a7f7a6a32b4994353717513df9c, type: 3}
+    - {fileID: 4236365540992321866, guid: 4cc97c7ae80b33d4481049407147a609, type: 3}
+    - {fileID: 21300000, guid: 0bdd88efce4fa534d971905fdca2c5b8, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -80,19 +79,19 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 3|PowerSlash, Assembly-CSharp
+      Data: 3|MultiShoot, Assembly-CSharp
     - Name: icon
       Entry: 10
       Data: 2
     - Name: damage
       Entry: 4
-      Data: 25
+      Data: 10
     - Name: cooldown
       Entry: 4
-      Data: 1
-    - Name: vfxPrefab
+      Data: 5
+    - Name: projectilePrefab
       Entry: 10
-      Data: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -105,8 +104,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  icon: {fileID: 21300000, guid: 4499b8536fe98bf419bf5bd5af814936, type: 3}
-  model: {fileID: 8506449042681072397, guid: 8a1bf1f8f9832da43a89d41d013cc258, type: 3}
-  title: Sword
-  description: just a normal sword
-  damage: 10
+  icon: {fileID: 21300000, guid: a3c6f7065fb38594b96d41b7bcde0f27, type: 3}
+  model: {fileID: 8506449042681072397, guid: 7c0a7bde0e15ca94fadd7e51e05870d0, type: 3}
+  title: Staff
+  description: just a normal staff
+  damage: 5

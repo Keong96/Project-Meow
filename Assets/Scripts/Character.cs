@@ -18,7 +18,7 @@ public class Character : MonoBehaviour
 {
     public SpriteRenderer model;
     public Animator anim;
-    public GameObject weaponModel;
+    public GameObject weaponHolder;
 
     [FoldoutGroup("Stats")] public Stat currentHealth;
     [FoldoutGroup("Stats")] public Stat maxHealth;

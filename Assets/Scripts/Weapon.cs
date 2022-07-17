@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public Player player;
-    public EquipmentSO weapon;
+    [HideInInspector] public Player player;
     public GameObject vfxPrefab;
+    [HideInInspector] public SpriteRenderer weaponVisual;
 
     private void Start()
     {
         player = GetComponentInParent<Player>();
+        weaponVisual = GetComponent<SpriteRenderer>();
     }
     // Update is called once per frame
     void Update()

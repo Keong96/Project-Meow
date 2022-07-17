@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using UnityEngine.EventSystems;
 
 public class LoadoutManager : Singleton<LoadoutManager>
 {
@@ -12,8 +13,10 @@ public class LoadoutManager : Singleton<LoadoutManager>
     public List<EquipmentSO> weaponList;
     public List<EquipmentSO> armorList;
     public List<EquipmentSO> accessoryList;
+    [HideInInspector] public GameObject myPlayer;
 
-    [Header("UI")]
+
+   [Header("UI")]
     public Button startButton;
     public GameObject tooltip;
 
@@ -34,6 +37,8 @@ public class LoadoutManager : Singleton<LoadoutManager>
     [HideInInspector] public int weaponSelection;
     [HideInInspector] public int armorSelection;
     [HideInInspector] public int accessorySelection;
+
+    [HideInInspector] public string tooltipString;
 
     private void Start()
     {
@@ -57,18 +62,18 @@ public class LoadoutManager : Singleton<LoadoutManager>
         loadoutPanel.blocksRaycasts = false;
 
         //TODO : multiplayer need to target correct player
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        myPlayer = GameObject.FindGameObjectWithTag("Player");
 
-        player.GetComponent<Player>().leftClickAbility = weaponList[weaponSelection].abilities[AbilityType.leftClickAbility];
-        player.GetComponent<Player>().rightClickAbility = weaponList[weaponSelection].abilities[AbilityType.rightClickAbility];
+        myPlayer.GetComponent<Player>().leftClickAbility = weaponList[weaponSelection].abilities[AbilityType.leftClickAbility];
+        myPlayer.GetComponent<Player>().rightClickAbility = weaponList[weaponSelection].abilities[AbilityType.rightClickAbility];
         //TODO : for amor and accessory in future we can do for other ability
 
-        player.transform.parent = null;
-        player.GetComponent<Rigidbody2D>().simulated = true;
+        myPlayer.transform.parent = null;
+        myPlayer.GetComponent<Rigidbody2D>().simulated = true;
         
         Camera.main.transform.DOMoveY(5f, 2.5f).OnComplete(()=>{
-            player.GetComponent<Player>().weaponModel.GetComponent<Weapon>().enabled = true;
-            player.GetComponent<PlayerController>().enabled = true;
+            myPlayer.GetComponent<Player>().weaponHolder.GetComponent<Weapon>().enabled = true;
+            myPlayer.GetComponent<PlayerController>().enabled = true;
         });
     }
 
@@ -84,6 +89,7 @@ public class LoadoutManager : Singleton<LoadoutManager>
                 weaponSlot.sprite = weaponList[weaponSelection].icon;
                 weaponAbility1.sprite = weaponList[weaponSelection].abilities[AbilityType.leftClickAbility].icon;
                 weaponAbility2.sprite = weaponList[weaponSelection].abilities[AbilityType.rightClickAbility].icon;
+
                 break;
             case 1:
                 weaponSelection--;
@@ -125,14 +131,14 @@ public class LoadoutManager : Singleton<LoadoutManager>
         }
     }
 
-    public void ShowTooltip(string text)
+    public void ShowTooltip()
     {
         tooltip.GetComponent<CanvasGroup>().alpha = 1.0f;
         tooltip.GetComponent<CanvasGroup>().blocksRaycasts = true;
         tooltip.GetComponent<CanvasGroup>().interactable = true;
 
         tooltip.transform.position = Input.mousePosition;
-        tooltip.GetComponentInChildren<TMP_Text>().text = text;
+        tooltip.GetComponentInChildren<TMP_Text>().text = tooltipString;
     }
 
     public void HideTooltip()

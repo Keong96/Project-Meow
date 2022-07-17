@@ -14,8 +14,8 @@ public class PowerSlash : Ability
         caster.canJump = false;
         caster.canDash = false;
 
-        float rotation = caster.weaponModel.transform.rotation.z + (caster.transform.localScale.x * -360f);
-        caster.weaponModel.transform.DORotate(new Vector3(0f, 0f, rotation), 0.35f, RotateMode.LocalAxisAdd).OnComplete(()=> {
+        float rotation = caster.weaponHolder.transform.rotation.z + (caster.transform.localScale.x * -360f);
+        caster.weaponHolder.transform.DORotate(new Vector3(0f, 0f, rotation), 0.35f, RotateMode.LocalAxisAdd).OnComplete(()=> {
             caster.GetComponent<Rigidbody2D>().gravityScale = 1f;
             caster.canMove = true;
             caster.canJump = true;
