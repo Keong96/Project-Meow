@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 172465286}
   - component: {fileID: 172465285}
   m_Layer: 0
-  m_Name: Button - Create Room
+  m_Name: Button - Close List
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2905,7 +2905,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1817622060}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: OnCloseFindRoomPress
+        m_MethodName: RefreshRoomList
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3145,7 +3145,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2137241158}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0

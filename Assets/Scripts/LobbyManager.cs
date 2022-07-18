@@ -47,16 +47,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.JoinLobby(catufoLobby);
         }
-        //lobbyCanvas.enabled = true;
+
         lobbyCanvas.GetComponent<CanvasGroup>().alpha = 1.0f;
         lobbyCanvas.GetComponent<CanvasGroup>().interactable = true;
         lobbyCanvas.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
+
     public void OnCloseFindRoomPress()
     {
-
-        lobbyCanvas.enabled = false;
+        lobbyCanvas.GetComponent<CanvasGroup>().alpha = 0.0f;
+        lobbyCanvas.GetComponent<CanvasGroup>().interactable = false;
+        lobbyCanvas.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
+
     public void OnCreateRoomPress()
     {
         GenerateRandomRoom();
@@ -135,21 +138,23 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             if(roomList[i].CustomProperties.TryGetValue("RoomType", out var roomType))
             {
-                if(roomType.ToString() == "Normal Game")
+                if (i >= roomItems.Count)
                 {
-                    if (i >= roomItems.Count)
-                    {
-                        var newRoom = Instantiate(roomPrefab, roomContent);
-                        var roomitem = newRoom.GetComponent<RoomItem>();
-                        roomItems.Add(roomitem);
-                        roomitem.SetRoomInfo(roomList[i]);
-                    }
-                    else
-                    {
-                        roomItems[i].gameObject.SetActive(true);
-                        roomItems[i].SetRoomInfo(roomList[i]);
-                    }
+                    var newRoom = Instantiate(roomPrefab, roomContent);
+                    var roomitem = newRoom.GetComponent<RoomItem>();
+                    roomItems.Add(roomitem);
+                    roomitem.SetRoomInfo(roomList[i]);
                 }
+                else
+                {
+                    roomItems[i].gameObject.SetActive(true);
+                    roomItems[i].SetRoomInfo(roomList[i]);
+                }
+
+                /*if(roomType.ToString() == "Normal Game")
+                {
+                    
+                }*/
             }
         }
     }
