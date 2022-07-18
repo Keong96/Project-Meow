@@ -116,12 +116,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         options.MaxPlayers = 4;
         options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable()
         {
-            {"RoomName", "InputRoomNameHere"},
-            {"RoomType", "Normal Game"}
+            {"RoomName", "InputRoomNameHere"}
         };
 
         string randomizedCode = RandomString(6);
-        var a = PhotonNetwork.CreateRoom(randomizedCode, options, TypedLobby.Default);
+        var a = PhotonNetwork.CreateRoom(randomizedCode, options, catufoLobby);
 
     }
 
@@ -136,26 +135,26 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         for (int i = 0; i < roomList.Count; i++)
         {
-            if(roomList[i].CustomProperties.TryGetValue("RoomType", out var roomType))
+            if (i >= roomItems.Count)
             {
-                if (i >= roomItems.Count)
-                {
-                    var newRoom = Instantiate(roomPrefab, roomContent);
-                    var roomitem = newRoom.GetComponent<RoomItem>();
-                    roomItems.Add(roomitem);
-                    roomitem.SetRoomInfo(roomList[i]);
-                }
-                else
-                {
-                    roomItems[i].gameObject.SetActive(true);
-                    roomItems[i].SetRoomInfo(roomList[i]);
-                }
+                var newRoom = Instantiate(roomPrefab, roomContent);
+                var roomitem = newRoom.GetComponent<RoomItem>();
+                roomItems.Add(roomitem);
+                roomitem.SetRoomInfo(roomList[i]);
+            }
+            else
+            {
+                roomItems[i].gameObject.SetActive(true);
+                roomItems[i].SetRoomInfo(roomList[i]);
+            }
 
-                /*if(roomType.ToString() == "Normal Game")
+            /*if (roomList[i].CustomProperties.TryGetValue("RoomType", out var roomType))
+            {
+                if(roomType.ToString() == "Normal Game")
                 {
                     
-                }*/
-            }
+                }
+            }*/
         }
     }
 
