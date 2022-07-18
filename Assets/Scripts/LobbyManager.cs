@@ -15,9 +15,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public Transform roomContent;
 
-    public TMP_InputField playerName;
+    public TMP_InputField playerNameInputField;
+    public string playerName;
+
     public Canvas lobbyCanvas;
-    TypedLobby normalGame = new TypedLobby("Normal Game", LobbyType.Default);
+    TypedLobby catufoLobby = new TypedLobby("Catufo", LobbyType.Default);
 
     // Start is called before the first frame update
     private void Awake()
@@ -43,7 +45,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected == false) Debug.LogError("Not connected to photonnetwork");
         if (PhotonNetwork.InLobby == false)
         {
-            PhotonNetwork.JoinLobby();
+            PhotonNetwork.JoinLobby(catufoLobby);
         }
         //lobbyCanvas.enabled = true;
         lobbyCanvas.GetComponent<CanvasGroup>().alpha = 1.0f;
@@ -62,7 +64,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster() // callback function for when first connection is made
     {
-        PhotonNetwork.JoinLobby(normalGame);
+        PhotonNetwork.JoinLobby(catufoLobby);
         //PhotonNetwork.AutomaticallySyncScene = true;
         Debug.Log("Connected");
     }
@@ -90,6 +92,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log(PhotonNetwork.CurrentRoom);
+        playerName = playerNameInputField.text;
         PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex+1);
     }
 
@@ -111,15 +114,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable()
         {
             {"RoomName", "InputRoomNameHere"},
-            {"RoomType", "Catufo"}
+            {"RoomType", "Normal Game"}
         };
 
         string randomizedCode = RandomString(6);
         var a = PhotonNetwork.CreateRoom(randomizedCode, options, TypedLobby.Default);
 
     }
-
-
 
     private List<RoomItem> roomItems = new List<RoomItem>();
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -134,7 +135,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             if(roomList[i].CustomProperties.TryGetValue("RoomType", out var roomType))
             {
-                if(roomType.ToString() == "Catufo")
+                if(roomType.ToString() == "Normal Game")
                 {
                     if (i >= roomItems.Count)
                     {
@@ -159,6 +160,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         return new string(Enumerable.Repeat(chars, length)
             .Select(s => s[random.Next(s.Length)]).ToArray());
+    }
+
+    public void RefreshRoomList()
+    {
+        PhotonNetwork.LeaveLobby();
+        PhotonNetwork.JoinLobby(catufoLobby);
     }
 
     [Button]
