@@ -17,6 +17,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public TMP_InputField playerName;
     public Canvas lobbyCanvas;
+    TypedLobby normalGame = new TypedLobby("Normal Game", LobbyType.Default);
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -60,7 +62,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster() // callback function for when first connection is made
     {
-        PhotonNetwork.JoinLobby(TypedLobby.Default);
+        PhotonNetwork.JoinLobby(normalGame);
         //PhotonNetwork.AutomaticallySyncScene = true;
         Debug.Log("Connected");
     }
