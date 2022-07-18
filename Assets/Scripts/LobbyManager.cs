@@ -43,8 +43,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.JoinLobby();
         }
-        lobbyCanvas.enabled = true;
-
+        //lobbyCanvas.enabled = true;
+        lobbyCanvas.GetComponent<CanvasGroup>().alpha = 1.0f;
+        lobbyCanvas.GetComponent<CanvasGroup>().interactable = true;
+        lobbyCanvas.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
     public void OnCloseFindRoomPress()
     {
@@ -106,7 +108,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         options.MaxPlayers = 4;
         options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable()
         {
-            {"RoomName", "InputRoomNameHere" }
+            {"RoomName", "InputRoomNameHere"},
+            {"RoomType", "Catufo"}
         };
 
         string randomizedCode = RandomString(6);
@@ -127,17 +130,23 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         for (int i = 0; i < roomList.Count; i++)
         {
-            if (i >= roomItems.Count)
+            if(roomList[i].CustomProperties.TryGetValue("RoomType", out var roomType))
             {
-                var newRoom = Instantiate(roomPrefab, roomContent);
-                var roomitem = newRoom.GetComponent<RoomItem>();
-                roomItems.Add(roomitem);
-                roomitem.SetRoomInfo(roomList[i]);
-            }
-            else
-            {
-                roomItems[i].gameObject.SetActive(true);
-                roomItems[i].SetRoomInfo(roomList[i]);
+                if(roomType.ToString() == "Catufo")
+                {
+                    if (i >= roomItems.Count)
+                    {
+                        var newRoom = Instantiate(roomPrefab, roomContent);
+                        var roomitem = newRoom.GetComponent<RoomItem>();
+                        roomItems.Add(roomitem);
+                        roomitem.SetRoomInfo(roomList[i]);
+                    }
+                    else
+                    {
+                        roomItems[i].gameObject.SetActive(true);
+                        roomItems[i].SetRoomInfo(roomList[i]);
+                    }
+                }
             }
         }
     }

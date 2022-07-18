@@ -4,10 +4,40 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using Photon.Pun;
 using Sirenix.OdinInspector;
 
-public class LoadoutManager : Singleton<LoadoutManager>
+public class LoadoutManager : MonoBehaviourPunCallbacks
 {
+    private static LoadoutManager instance;
+
+    public static LoadoutManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                //Debug.Log("Instance set");
+                instance = (LoadoutManager)FindObjectOfType(typeof(LoadoutManager));
+                if (instance == null)
+                {
+                    GameObject newgo = new GameObject();
+                    instance = newgo.AddComponent<LoadoutManager>();
+                    //newgo.name = nameof(T)
+                }
+            }
+            else
+            {
+                //Debug.LogError($"Detected two singletons of type: {typeof(T)}. You should only have one of each in this scene!");
+            }
+            return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
+
     public CanvasGroup loadoutPanel;
     public List<EquipmentSO> weaponList;
     public List<EquipmentSO> armorList;
@@ -34,6 +64,11 @@ public class LoadoutManager : Singleton<LoadoutManager>
     [HideInInspector] public int weaponSelection;
     [HideInInspector] public int armorSelection;
     [HideInInspector] public int accessorySelection;
+
+    private void OnPlayerEnterRoom()
+    {
+        
+    }
 
     private void Start()
     {
